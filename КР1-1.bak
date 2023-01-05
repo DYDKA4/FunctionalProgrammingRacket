@@ -1,0 +1,55 @@
+#lang racket
+(define (taskI lst)
+  (define (minim lst)
+    (cond 
+      [(null? (cdr lst)) (car lst)]
+      [(< (car lst) (minim (cdr lst))) (car lst)]
+      [else (minim (cdr lst))]))
+  (define (bild-lst new-lst lst min-val i)
+    (cond
+      [(null? (cdr lst))
+       (if (= (car lst) min-val) (cons i new-lst) new-lst)]
+      [(= (car lst) min-val) (bild-lst (cons i new-lst) (cdr lst) min-val (+ i 1))]
+      [else (bild-lst new-lst (cdr lst) min-val (+ i 1))]
+      )
+    )
+  (cond
+    [(equal? lst '()) '()]
+    [else (bild-lst '() lst (minim lst) 0)]
+    )
+  )
+(define (taskII t s)
+  (let sub-function ((deep 4) (t (vector->list t)) (total 0) (s s))
+    (cond
+      [(null? t) total]
+      [(vector?(car t))(sub-function (* deep 4) (vector->list (car t)) total s)]
+      [(= (car t) 1) (sub-function deep (cdr t) (+ total (/ s deep)) s)]
+      [(null? (cdr t)) total]
+      [else
+       (sub-function deep (cdr t) total s)]
+      )
+    )
+  )
+   
+(define (taskIII t)
+    (call/cc
+     (lambda (cc-exit)
+       (let sub-function ((deep 4) (t (vector->list t)) (white 0) (black 0))
+         (cond
+           [( >= white 0.5) (cc-exit #f)]
+           [( > black 0.5)(cc-exit #t)]
+           [(null? t) ( > black 0.5)]
+           [(vector?(car t))(sub-function (* deep 4) (vector->list (car t)) white black)]
+           [(= (car t) 1) (sub-function deep (cdr t) white (+ black (/ 1 deep)))]
+           [(null? (cdr t)) ( > black 0.5)]
+           [else
+            (sub-function deep (cdr t) (+ white (/ 1 deep)) black)]
+           )
+         )
+       )
+     )
+  )
+
+(taskIII #(0 0 0 1))
+    
+  

@@ -1,0 +1,3 @@
+(define (determinant a b c d) (- (* a d) (* b c)))
+(define (coplanarity x0 y0 z0 x1 y1 z1 x2 y2 z2) (+ (- (* x0 (determinant y1 z1 y2 z2)) (* x1 (determinant y0 z0 y2 z2))) (* x2 (determinant y0 z0 y1 z1))))
+(define (coplanar?  x0 y0 z0 x1 y1 z1 x2 y2 z2) (if (= (coplanarity  x0 y0 z0 x1 y1 z1 x2 y2 z2) 0 ) #t #f))

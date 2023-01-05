@@ -1,0 +1,20 @@
+3.I.
+Пример программы
+(define (create-place name)
+	(let ((things '()) (exits (make-hash)))
+	(lambda (msg . msg-args)
+	(cond ((eq? msg 'get-name) name)
+		((eq? msg 'get-things) things)
+		((eq? msg 'get-exits) exits)
+		((eq? msg 'put-thing!) (set! things (cons (car msg-args) things)))
+		((eq? msg 'add-exit!)
+			(let ((exit (car msg-args)))
+				(hash-ref! exits ((exit 'get-to) 'get-name) exit)))
+		(else (error "WRONG MESSAGE"))))))
+3.II 
+Данные модели помогают ориентированться в коде и планировать дальнейшую разработку кода
+Account- имеет поля баланса, лимита и номера, его функции - получить баланс, установить баланс, получить лимит, установить лимит
+Сard - имеет поля cvvcode, дата, номер, его функции - получить сvvcode, установить сvvcode, получить дату, установить дату
+Transaction - имеет поля: количество, дату, номер, его функуции - получить количетсво, установить количество, получить дату, установить дату
+CashTransaction
+Связи можно сравнить со связями в реляционных базах данных

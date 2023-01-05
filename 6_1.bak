@@ -1,0 +1,10 @@
+#lang racket
+(define (funVI lst res num)
+       (if (null? lst)
+           res
+           (funVI (cdr lst)
+                   (if (= 0 (modulo num (car lst)))
+                       res
+                       (* res (car lst))
+                       ) num)
+           ))

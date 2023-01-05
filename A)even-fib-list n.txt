@@ -1,0 +1,38 @@
+(define (even-fib-list-a n)
+    (cond
+      [(<= n 0) '()]
+      [(> n 0)
+       (let loop ((fib-n-1 1) (fib-n-2 0) (i (- n 1)) (arr '(0)) )
+         (if (= i 0) (reverse arr)
+             (loop (+ fib-n-1 fib-n-2) fib-n-1 (if (even? fib-n-1)(- i 1)i)
+                   (if (even? fib-n-1)(cons fib-n-1 arr)arr)
+                   )
+             )
+         )
+       ]
+      )
+    )
+
+
+  (define (even-fib-list b)
+        (define (fib curr_n pred curr next)
+         (if (> curr_n n)
+           '()
+           (cons
+            next
+           (fib
+            (+ curr_n 1)
+            (+ curr next)
+            (+ next next curr)
+            (+ next next curr curr next)
+            )
+           )
+           )
+          )
+       (cond
+         [(<= n 0) '()]
+         [(> n 0)
+          (cons 0 (fib 2 1 1 2 ))
+          ]
+         )
+       )

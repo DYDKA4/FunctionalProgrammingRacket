@@ -1,0 +1,24 @@
+#lang racket/base
+
+(define empty-tree #())
+(define make-tree vector)
+(define (tree-data tree) (vector-ref tree 0))
+(define (tree-left tree) (vector-ref tree 1))
+(define (tree-right tree) (vector-ref tree 2))
+(define (empty-tree? t) (equal? t #()))
+
+(define (task-5 tree h)
+    (call/cc 
+        (lambda (cc-exit)
+            (let sub-task-5 ((tree tree) (h h))
+              (cond
+                [(and (not (= h 0)) (empty-tree? tree)) (cc-exit #f)]
+                [(and (= h 0) (empty-tree? tree)) #t]
+                [(<= h 0) (cc-exit #f)]
+                [else (and (sub-task-5 (tree-left tree) (- h 1)) (sub-task-5 (tree-right tree) (- h 1)))]
+                )
+              )
+          )
+        )
+  )
+

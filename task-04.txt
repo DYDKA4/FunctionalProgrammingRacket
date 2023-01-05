@@ -1,0 +1,11 @@
+(define (task-4 tree h)
+  (cond
+    [(= h 0) (equal? tree #())]
+    [(= h 1) (if (empty-tree? tree) #f 
+              (and (and (task-4 (tree-left tree) 0) (task-4 (tree-left tree) 0)) (not (eq? (tree-data tree) null)))
+              )]
+    [else (if (empty-tree? tree) #f
+              (and (task-4 (tree-left tree) (- h 1)) (task-4 (tree-right tree) (- h 1)))
+              )]
+    )
+  )

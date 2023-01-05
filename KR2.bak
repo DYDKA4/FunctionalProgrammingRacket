@@ -1,0 +1,12 @@
+#lang scheme/base
+(define (f-2-ii lst)
+  (let loop ((result 0) (lst lst) (collection '()))
+    (cond
+      [(eq? '() lst) result]
+      [(member (car lst) collection) (loop result (cdr lst) collection)]
+      [else (loop (+ result 1) (cdr lst) (cons (car lst) collection))]
+      )
+    )
+  )
+
+(f-2-ii '()) 

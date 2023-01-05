@@ -1,0 +1,22 @@
+  (define (even-fib-list n)
+        (define (fib curr_n pred curr next)
+         (if (> curr_n n)
+           '()
+           (cons
+            next
+           (fib
+            (+ curr_n 1)
+            (+ curr next)
+            (+ next next curr)
+            (+ next next curr curr next)
+            )
+           )
+           )
+          )
+       (cond
+         [(<= n 0) '()]
+         [(> n 0)
+          (cons 0 (fib 2 1 1 2 ))
+          ]
+         )
+       )

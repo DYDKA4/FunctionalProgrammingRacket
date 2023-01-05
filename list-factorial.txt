@@ -1,0 +1,48 @@
+; линейно-итеративный процесс, записанный с помощью let
+(define (2n-1!-list n)
+    (cond 
+        ((or (not (integer? n)) (< n 1)) '())
+        ((= n 1) '(1))
+        (else 
+            (let fact_list ((i 2) (curr 1) (result '(1)))
+                (if (> i n)
+                    result
+                    (fact_list 
+                        (+ i 1) 
+                        (* curr (-(* 2 i) 2) (- (* 2 i) 1)) 
+                        (append 
+                            result 
+                            (list (* curr (-(* 2 i) 2) (- (* 2 i) 1)))
+                        )
+                    )
+                )
+            )    
+        )
+    )
+)
+
+; линейно рекурсивный процесс
+(define (2n-1!-list n)
+    (define (fact_list i curr)
+        (if (> i n)
+            '()
+            (append 
+                (list (* curr (-(* 2 i) 2) (- (* 2 i) 1)))
+                (fact_list 
+                    (+ i 1) 
+                    (* curr (-(* 2 i) 2) (- (* 2 i) 1)) 
+                )
+            )
+        )
+    )
+    (cond 
+        ((or (not (integer? n)) (< n 1)) '())
+        ((= n 1) '(1))
+        (else 
+            (append 
+                '(1) 
+                (fact_list 2 1)
+            )
+        )
+    )
+)

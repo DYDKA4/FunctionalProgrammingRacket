@@ -1,0 +1,8 @@
+#lang racket
+(require math/number-theory)
+
+(define (powers)
+  (let pow-gen ((a 1) (f2 5)) ; порождающая функция
+    (if (> a f2)
+        (stream-cons f2 (pow-gen a (* f2 5)))
+        (stream-cons a (pow-gen (* a 2) f2)))))
